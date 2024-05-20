@@ -1,15 +1,18 @@
 # Amazon Bedrock News Summarizer
 
-This Python project demonstrates how to fetch news from multiple APIs and utilize AWS Bedrock to process and generate text based on the fetched news data. It integrates news data from GNews and NewsAPI, formats it, and sends it to an AWS Bedrock machine learning model for natural language processing.
+Amazon bedrock project demonstrates how to add function calling news data source from the web and integrating with Amazon Bedrock. The code fetch news from multiple RSS feeds, APIs and utilize Amazon Bedrock to process and generate list of news and summary based on the fetched news data. It integrates news data from RSS feeds from Cointelegraph, GNews and NewsAPI, formats it, and sends it to an Amazon Bedrock Anthropic Claude models(interchangeable) for summary of list of latest  news.
 
 ## Features
 
-- **News Data Retrieval**: Fetch news from the GNews and NewsAPI services. You can additional APis based on your requirememnts.
-- **AWS Bedrock Integration**: Use AWS Bedrock to invoke a machine learning model that processes news data.
-- **Modular Design**: Easily extendable for additional news sources by implementing a base news fetcher class.
+- **News Data Retrieval**: Fetch news from the RSS feeds, GNews and NewsAPI services. You can add or remove RSS feeds and APIs based on your requirememnts.
+- **Amazon Bedrock Integration**: Use Amazon Bedrock to invoke a machine learning model that processes news data.
+- **Modular Design**: Easily extendable for additional news sources like RSS feeds, news Apis by implementing a base news fetcher class.
 
 ## Overview
-The news-summarizer code provided establishes a scalable framework designed to seamlessly integrate additional news APIs as needed. It uses modular programming principles centered around a base class, NewsFetcher, which specifies a method fetch_news that must be implemented by any subclass. This method sets the contract for fetching news, which is individually implemented by GNewsFetcher and NewsAPIFetcher to interact with their respective APIs. This architecture not only facilitates the current functionality of fetching and formatting news data from GNews and NewsAPI but also simplifies the process of integrating more news sources. By creating new subclasses of NewsFetcher, developers can easily extend the application to include more APIs. Each subclass manages its own API interactions and formats the fetched data, which is then aggregated and processed by AWS Bedrock's machine learning model via boto3 for advanced natural language processing. This approach ensures that the system remains adaptable and maintainable, supporting ongoing expansion and customization without significant restructuring.
+
+This news summarization tool leverages Amazon Bedrock's powerful language models to fetch and condense news articles. It utilizes a flexible framework that can integrate multiple news sources, including GNews, NewsAPI, and RSS feeds. This system is designed to be easily expandable, allowing for the seamless addition of new sources.
+The tool's core is a base class called NewsFetcher, which defines a standard way for subclasses to retrieve and format news data from various APIs and RSS feeds.  This modular approach ensures the code is maintainable and adaptable as new sources are added.
+By combining this fetched news data, the tool harnesses the capabilities of Amazon Bedrock's language models, effectively summarizing the most relevant information into concise summaries. This streamlined process is facilitated by libraries like boto3, langchain, and langchain-aws, resulting in a powerful and efficient news summarization solution.
 
 
 ## Setup
@@ -21,6 +24,8 @@ The news-summarizer code provided establishes a scalable framework designed to s
 - urllib
 - NewsAPI Python Client
 - AWS CLI configured with appropriate AWS credentials
+- langchain
+- langchain-aws
 
 ### Python Libraries
 To run the news-summarizer script, you will need to install several Python libraries. These include:
