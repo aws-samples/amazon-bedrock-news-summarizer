@@ -14,6 +14,9 @@ This news summarizer tool leverages Amazon Bedrock's powerful language models to
 The tool's core is a base class called NewsFetcher, which defines a standard way for subclasses to retrieve and format news data from various APIs and RSS feeds.  This modular approach ensures the code is maintainable and adaptable as new sources are added.
 By combining this fetched news data, the tool harnesses the capabilities of Amazon Bedrock's language models, effectively summarizing the most relevant information into concise summaries. This streamlined process is facilitated by libraries like boto3, langchain, and langchain-aws, resulting in a powerful and efficient news summarization solution.
 
+## Architecture Diagram
+
+![Architecture Diagram](https://github.com/aws-samples/amazon-bedrock-news-summarizer/blob/main/Architecture-Diagram.jpg)
 
 ## Setup
 
