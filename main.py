@@ -1,18 +1,9 @@
-import requests
-import os
 import json
 import boto3
-from langchain.tools import tool, StructuredTool
-from langchain.agents import load_tools, initialize_agent, AgentType
-from langchain.llms import Bedrock
-from langchain.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import ChatPromptTemplate
+from langchain.tools import tool
 from langchain_aws import ChatBedrock
-#from langchain_community.chat_models import BedrockChat
-
-# Assuming you have 'news_fetchers.py' with the fetch_all_news function 
-from news_fetchers import GNewsFetcher, NewsAPIFetcher,RSSFeedFetcher
+from langchain.agents import AgentType,load_tools, initialize_agent
+from news_fetchers import GNewsFetcher, NewsAPIFetcher, RSSFeedFetcher 
 
 
 
