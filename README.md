@@ -1,6 +1,6 @@
 # Amazon Bedrock News Summarizer
 
-Amazon bedrock project demonstrates how to add function calling news data source from the web and integrating with Amazon Bedrock. The code fetch news from multiple RSS feeds, APIs and utilize Amazon Bedrock to process and generate list of news and summary based on the fetched news data. It integrates news data from RSS feeds from Cointelegraph, GNews and NewsAPI, formats it, and sends it to an Amazon Bedrock Anthropic Claude models(interchangeable) for summary of list of latest  news.
+Amazon bedrock project demonstrates how to add Bedrock Agent calling news data source from the web and integrating with Amazon Bedrock. The code fetch news from multiple RSS feeds, APIs and utilize Amazon Bedrock to process and generate list of news and summary based on the fetched news data. It integrates news data from RSS feeds from Cointelegraph, GNews and NewsAPI, formats it, and sends it to an Amazon Bedrock Anthropic Claude models(interchangeable) for summary of list of latest  news.
 
 ## Features
 
@@ -10,7 +10,7 @@ Amazon bedrock project demonstrates how to add function calling news data source
 
 ## Overview
 
-This news summarization tool leverages Amazon Bedrock's powerful language models to fetch and condense news articles. It utilizes a flexible framework that can integrate multiple news sources, including GNews, NewsAPI, and RSS feeds. This system is designed to be easily expandable, allowing for the seamless addition of new sources.
+This news summarizer tool leverages Amazon Bedrock's powerful language models to fetch and condense news articles. It utilizes a flexible framework that can integrate multiple news sources, including GNews, NewsAPI, and RSS feeds. This system is designed to be easily expandable, allowing for the seamless addition of new sources.
 The tool's core is a base class called NewsFetcher, which defines a standard way for subclasses to retrieve and format news data from various APIs and RSS feeds.  This modular approach ensures the code is maintainable and adaptable as new sources are added.
 By combining this fetched news data, the tool harnesses the capabilities of Amazon Bedrock's language models, effectively summarizing the most relevant information into concise summaries. This streamlined process is facilitated by libraries like boto3, langchain, and langchain-aws, resulting in a powerful and efficient news summarization solution.
 
@@ -36,7 +36,7 @@ NewsAPI Python Client: A client library to fetch news from NewsAPI.
 You can install these libraries using pip:
 
 ```
-pip install boto3 newsapi-python
+pip install requirements.txt
 ```
 ### AWS Configuration and Credentials
 Before you can interact with AWS services through boto3, you need to configure your AWS credentials:
@@ -46,10 +46,8 @@ AWS CLI Installation: First, ensure that AWS CLI is installed on your system.
 ```
 pip install awscli
 ```
- Install the libraries for news-api
-```
-pip install newsapi-python
-```
+
+
 ### Configure AWS CLI: Set up your AWS credentials (AWS Access Key ID and AWS Secret Access Key) and default region using the AWS CLI. These credentials should be associated with an AWS account that has permissions to access the required AWS services.
 
 ```
@@ -91,20 +89,31 @@ Here's an example of an IAM role JSON policy document that grants necessary perm
 
 ```
 
-### Environment Variables
-Set environment variables for the API keys needed for GNews and NewsAPI, ensuring they are securely stored  in the enviroment or in AWS Secrets Manager and accessible in your development environment:
-
-```
-export GNEWS_API_KEY='your_gnews_api_key_here'
-export NEWS_API_KEY='your_news_api_key_here'
-```
 
 6. Security Considerations
-Make sure that your script and environment adhere to best security practices, such as not hardcoding sensitive information (like API keys and AWS credentials) directly in the script. Use environment variables or secure vaults like AWS Secrets Manager for handling sensitive data.
+   
+* Secure Network Isolation: Deploy the news summarizer within a Virtual Private Cloud (VPC) to restrict network access. Configure security groups to allow outbound connections only to the necessary APIs (GNews, NewsAPI) and RSS feed endpoints.
+
+* Least Privilege IAM Roles:  Create IAM roles with the minimum permissions required for the summarizer to interact with Bedrock and other AWS services. Avoid using overly permissive roles to reduce the potential impact of any security breaches.
+
+* Content Filtering with Bedrock Guardrails: Utilize Amazon Bedrock's built-in content filtering mechanisms or custom guardrails to filter out inappropriate or harmful content from the generated summaries.
+
+* Human-in-the-Loop Review: Implement a human review process for the final summaries before they are published or used for decision-making. This ensures accuracy and prevents the spread of misinformation or biased content.
+* API Rate Limiting: Monitor and enforce rate limits for API calls to GNews and NewsAPI. This prevents abuse and ensures fair usage of these external services.
+
+* Error Handling and Logging: Implement comprehensive error handling to catch and log exceptions that occur during news fetching or summarization. This helps with debugging and identifying potential security issues.
+
+* Secrets Management: Store API keys and other sensitive information securely. Consider using a secrets management service like AWS Secrets Manager to store and retrieve credentials in a secure manner.
+
+* Data Encryption: Encrypt sensitive data at rest and in transit to protect it from unauthorized access.
+
+* Vulnerability Scanning: Regularly scan your code and dependencies for known vulnerabilities. Keep libraries and packages up-to-date to address any security patches.
+
+* Least Privilege Access to RSS Feeds: When accessing RSS feeds, use a non-privileged user or service account to limit the potential impact of any compromised feed.
 
 
 ## Note
-You will have to subscribe news-api and gnews api to use this code. 
+You may have to subscribe news-api and gnews for API access or use the RSS feeds. When using RSS feeds in this code, be mindful of the structure and consistency of different feeds, as it can vary. Implement robust error handling to gracefully manage cases where feeds are unavailable or contain unexpected formats.
 
 
 
