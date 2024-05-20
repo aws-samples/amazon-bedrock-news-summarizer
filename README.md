@@ -22,7 +22,7 @@ By combining this fetched news data, the tool harnesses the capabilities of Amaz
 
 ### Prerequisites
 
-- Python 3.6 or higher
+- Python 3.8 or higher
 - Boto3
 - urllib
 - NewsAPI Python Client
